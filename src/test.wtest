@@ -1,0 +1,112 @@
+import example.*
+
+// el set tardaba 7-10 segundos en agregar y 12 en buscar 100 elementos
+
+test "test lista de 1000 enteros tiene buena performance" {
+	const unSet = #{}
+	(1 .. 1000).forEach{ i => 
+		unSet.add(i * 2)
+	}
+	unSet.contains(55)
+	unSet.filter { i => i.even() }.size()
+	unSet.map { i => i + 1 }
+	unSet.anyOne()
+	unSet.difference(#{1, 2, 5})
+	unSet.sum()
+	unSet.max()
+	unSet.fold(0, { acum, i => acum + i })
+	var numbers = unSet.fold(unSet.anyOne(), { acum, number => acum.max(number) })
+	console.println(numbers)
+	console.println(unSet)
+	unSet.clear()
+	assert.that(true)
+}
+
+test "test lista de un objeto definido por el usuario sin == tiene buena performance" {
+	const unSet = #{}
+	(1 .. 1000).forEach{ i => 
+		const nombre = "pepita" + i
+		const ave = new Ave(nombre = nombre, energia = i)
+		unSet.add(ave)
+	}
+	unSet.contains(unSet.anyOne())
+	unSet.filter { ave => ave.energia() > 10 }
+	unSet.map { ave => ave.energia() }
+	unSet.anyOne()
+	unSet.difference(#{unSet.anyOne()})
+	unSet.sum({ ave => ave.energia() })
+	unSet.max()
+	unSet.fold(0, { acum, ave => acum + ave.energia() })
+	unSet.clear()
+	assert.that(true)
+}
+
+test "test lista de un objeto definido por el usuario con == y > tiene buena performance" {
+	const unSet = #{}
+	(1 .. 1000).forEach{ i => 
+		const nombre = "pepita" + i
+		const ave = new AveMagica(nombre = nombre, energia = i)
+		unSet.add(ave)
+	}
+	unSet.contains(unSet.anyOne())
+	unSet.filter { ave => ave.energia() > 10 }
+	unSet.map { ave => ave.energia() }
+	unSet.anyOne()
+	unSet.difference(#{unSet.anyOne()})
+	unSet.sum({ ave => ave.energia() })
+	unSet.max()
+	unSet.fold(0, { acum, ave => acum + ave.energia() })
+	unSet.clear()
+	assert.that(true)
+}
+
+test "test lista de strings tiene buena performance" {
+	const unSet = #{}
+	(1 .. 1000).forEach{ i => 
+		unSet.add("hola" + i)
+	}
+	unSet.contains("hola88")
+	unSet.filter { unString => unString.length().even() }
+	unSet.map { unString => unString.length() }
+	unSet.anyOne()
+	unSet.difference(#{unSet.anyOne()})
+	unSet.sum({ unString => unString.length() })
+	unSet.max()
+	unSet.fold(0, { acum, unString => acum + unString.length() })
+	unSet.clear()
+	assert.that(true)
+}
+
+test "test lista de dates tiene buena performance" {
+	const unSet = #{}
+	(1 .. 1000).forEach{ i => 
+		unSet.add(new Date(1, 1, 1900 + i))
+	}
+	unSet.contains(new Date(1, 1, 1902))
+	unSet.filter { unDate => unDate.month() == 2 }
+	unSet.map { unDate => unDate.year() }
+	unSet.anyOne()
+	unSet.difference(#{unSet.anyOne()})
+	unSet.sum({ unDate => unDate.month() })
+	unSet.max()
+	unSet.fold(0, { acum, unDate => acum + unDate.month() })
+	unSet.clear()
+	assert.that(true)
+}
+
+test "test lista de booleanos tiene buena performance" {
+	const unSet = #{}
+	(1 .. 1000).forEach{ i => 
+		unSet.add(true)
+	}
+	unSet.contains(false)
+	unSet.filter { unBoolean => unBoolean }
+	unSet.map { unBoolean => not unBoolean }
+	unSet.anyOne()
+	unSet.difference(#{false})
+	unSet.sum({ unBoolean => if (unBoolean) 1 else 0 })
+	unSet.max()
+	unSet.fold(0, { acum, unBoolean => acum + (if (unBoolean) 1 else 0) })
+	unSet.clear()
+	assert.that(true)
+}
