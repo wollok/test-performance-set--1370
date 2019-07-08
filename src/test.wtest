@@ -41,6 +41,25 @@ test "test lista de un objeto definido por el usuario sin == tiene buena perform
 	assert.that(true)
 }
 
+test "test lista de un objeto definido por el usuario con == y sin > tiene buena performance" {
+	const unSet = #{}
+	(1 .. 1000).forEach{ i => 
+		const nombre = "pepita" + i
+		const ave = new AveLoca(nombre = nombre, energia = i)
+		unSet.add(ave)
+	}
+	unSet.contains(unSet.anyOne())
+	unSet.filter { ave => ave.energia() > 10 }
+	unSet.map { ave => ave.energia() }
+	unSet.anyOne()
+	unSet.difference(#{unSet.anyOne()})
+	unSet.sum({ ave => ave.energia() })
+	unSet.max()
+	unSet.fold(0, { acum, ave => acum + ave.energia() })
+	unSet.clear()
+	assert.that(true)
+}
+
 test "test lista de un objeto definido por el usuario con == y > tiene buena performance" {
 	const unSet = #{}
 	(1 .. 1000).forEach{ i => 
