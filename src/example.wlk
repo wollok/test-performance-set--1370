@@ -55,5 +55,5 @@ class AveLoca {
 }
 
 object entrenador {
-	var property aves
+	var property aves = []
 }
