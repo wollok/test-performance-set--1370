@@ -114,9 +114,9 @@ test "test lista de strings tiene buena performance" {
 test "test lista de dates tiene buena performance" {
 	const unList = []
 	(1 .. 1000).forEach{ i => 
-		unList.add(new Date(1, 1, 1900 + i))
+		unList.add(new Date(day = 1, month = 1, year = 1900 + i))
 	}
-	unList.contains(new Date(1, 1, 1902))
+	unList.contains(new Date(day = 1, month = 1, year = 1902))
 	unList.filter { unDate => unDate.month() == 2 }
 	unList.map { unDate => unDate.year() }
 	unList.anyOne()
